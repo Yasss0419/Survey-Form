@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Experience Survey</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    form {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #34495e;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 14px;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      background-color: #34495e;
+    }
+
+    .center-buttons {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Customer Experience Survey</h2>
+
+  <form id="survey">
+    <fieldset>
+      <legend>Personal Information</legend>
+      <label>Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label>Email:</label>
+      <input type="email" name="email" id="email">
+
+      <label>Age:</label>
+      <input type="number" id="age" name="age" min="10" max="100">
+    </fieldset>
+
+    <fieldset>
+      <legend>Service Rating</legend>
+      <p>How satisfied are you with our service?</p>
+      <label><input type="radio" name="rating" value="very_satisfied"> Very Satisfied</label><br>
+      <label><input type="radio" name="rating" value="satisfied"> Satisfied</label><br>
+      <label><input type="radio" name="rating" value="neutral"> Neutral</label><br>
+      <label><input type="radio" name="rating" value="dissatisfied"> Dissatisfied</label>
+
+      <br><br>
+
+      <p>What features do you use? (Check all that apply):</p>
+      <label><input type="checkbox" name="feature" value="chat"> Live Chat</label><br>
+      <label><input type="checkbox" name="feature" value="support"> Email Support</label><br>
+      <label><input type="checkbox" name="feature" value="faq"> FAQs</label>
+
+      <br><br>
+
+      <label>Preferred Contact Method:</label>
+      <select name="contact_method" id="contactMethod">
+        <option value="">--Please choose--</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+        <option value="chat">Live Chat</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>Additional Feedback</legend>
+      <label>Comments:</label><br>
+      <textarea name="comments" rows="5" placeholder="Tell us how we can improve..."></textarea>
+    </fieldset>
+
+    <div class="center-buttons">
+      <input type="reset" value="Reset Form">
+      <input type="submit"  value="Submit Survey">
+    </div>
+  </form>
+
+
+<script>
+
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbw5KHOuxZLD9EtGEbDYCyMP0Owr2HVWhsCTHY96mSGnrFI6F7ColUONRfF8jB2UMaxPcA/exec';
+
+  const form = document.getElementById('survey');
+
+ 
+
+//When the user clicks the submit button, this function runs.
+
+  form.addEventListener('submit', e => {
+
+    e.preventDefault(); //This stops the browser’s default action of reloading
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+
+      .then(response => {
+
+        alert("Form submitted successfully!");
+
+        form.reset();
+
+      })
+
+      .catch(error => alert('Error!', error.message));
+
+  });
+
+</script>
+</body>
+</html>
